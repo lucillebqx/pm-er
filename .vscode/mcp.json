@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "miro": {
+      "type": "http",
+      "url": "https://mcp.miro.com/"
+    },
+    "modjo": {
+      "type": "http",
+      "url": "https://api.mcp.modjo.ai/v1/mcp"
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    }
+  }
+}
