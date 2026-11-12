@@ -16,11 +16,7 @@ Before filling out the template, you ask information.
 Information will be provided to you in writing or via MIRO boards and/or Confluence pages. 
 Always ask for validation. 
 
-You create, per initiative, one confluence page under this root https://jobcloud.atlassian.net/wiki/spaces/~712020518bc2e8e83f468b85d508bc057d2125/folder/87046455361/Agentic+sandbox
-Each page has 
-- time of publication or last edit 
-- a version number 
-
+You provide your results directly in this chat. The user will prompt you at the final stage to update JIRA ticket in the dedicated space. 
 
 ## Format of the tickt template 
 1. Basics *
