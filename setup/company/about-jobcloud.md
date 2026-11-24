@@ -36,14 +36,6 @@ Values: OneTeam - Passion - Diversity & Inclusion - Customer Centricity - Perfor
 - 50000 customers publishing job ads with JobCloud 
 - **** monthly users 
 
-** Revenue:** to be confirmed
-- 120M annual revenues 
-- *** ARR (Annual Recurring Revenue)
-- *** MRR (Monthly Recurring Revenue)
-- *** paying customers
-- Average deal size: ***/year
-
-**Growth:** to be confirmed
 - **% month-over-month user growth
 - **% month-over-month revenue growth
 - **% net retention rate
@@ -65,12 +57,7 @@ Niche industry verticals (e.g., healthcare, hospitality, IT/engineering)
 - Job Seekers: Professionals across Switzerland and cross-borders, early-career to senior, white- and blue-collar segments
 
 ### Market size (to be confirmed)
-**TAM (Total Addressable Market):** 
-- 
-**SAM (Serviceable Addressable Market):** 
--
-**SOM (Serviceable Obtainable Market):** 
--
+Market sizing and value pools are documented per strategy year in strategy-jobcloud.md.
 
 ## Competitive Landscape
 ### Direct Competitors
@@ -78,15 +65,7 @@ Niche industry verticals (e.g., healthcare, hospitality, IT/engineering)
 - LinkedIn Jobs: strong professional network and sourcing; [DIFFERENTIATION in favor of Jobcloud:: local focus, better ad ROI for roles requiring Swiss market reach]
 - Talent.com: price-competitive aggregator; [DIFFERENTIATION in favor of Jobcloud:: quality/controls, local employer relationships]
 - StepStone/DACH portals: strong in DE; variable relevance in CH; [DIFFERENTIATION: Swiss-first brand and audience]
-- Public job boards (e.g., Job-Room/RAV): free but limited targeting/quality; [DIFFERENTIATION in favor of Jobcloud:: scale and conversion]
-
-### Indirect Competitors
-- Google for Jobs (organic distribution)
-- LLMs 
-- Career site traffic and direct employer branding
-- Social hiring (Facebook/Instagram/TikTok for high-volume/blue-collar)
-- Sourcing tools (LinkedIn recruiter, agencies)
-
+Market sizing and value pools are documented per strategy year
 ### Our Positioning
 Core positioning: "Switzerland’s leading talent marketplace connecting employers and candidates with unmatched local reach, quality, and ROI."
 Differentiators:
@@ -98,9 +77,7 @@ Differentiators:
 
 
 ## Product Philosophy (not the right information)
-### Core Beliefs
-1. Context over status updates
-- Tasks should have enough context that anyone can pick them up
+### Cor
 - Status meetings are waste - status should be visible in the tool
 2. Async by default
 - Don't require synchronous coordination
@@ -111,9 +88,7 @@ Differentiators:
 4. Speed matters
 - Tools should be fast to learn, fast to use, fast to load
 - No loading spinners, no lag
-5. Beautiful and functional
-- Good design isn't just aesthetics
-- UI should guide users to success
+5.UI should guide users to success
 
 ## Company Culture
 ### How We Work
@@ -141,13 +116,8 @@ Tools:
 - Clarity 
 - Tableau 
 
-## Strategic priorities (to be confirmed) 
-### OKRs T3 2026 Core
-https://jobcloud.atlassian.net/wiki/spaces/STRAT2019/pages/86932029651/2026-T3-JobCloud+ONE
-
-### Company OKRs 2026 
-https://jobcloud.atlassian.net/wiki/spaces/STRAT2019/pages/86932029441/2026-T3+November+to+February 
-
+## Strategy
+All strategic content (Strategy Update 2025, Strategy 2026 "Infinity", OKRs, RPP and ONE monetization) lives in strategy-jobcloud.md.
 
 ## Your Role (Senior PM)
 ### What You Own
@@ -179,7 +149,6 @@ Primary: monetary
 Secondary:(to be confirmed)
 - Feature adoption rates
 - User satisfaction (NPS, surveys)
-- Support ticket volume
 ---
 ## Key Terminology
 Term: 4-month period for which OKRs are set 

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mockup – Edit a template, save &amp; send</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Noto Sans",Helvetica,Arial,sans-serif;color:#1a1a1a;background:#2b2b33}
+.bar{position:sticky;top:0;z-index:5;background:#fff;padding:12px 24px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #ddd;flex-wrap:wrap}
+.bar b{margin-right:8px}
+.tab{border:1px solid #bbb;background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:14px}
+.tab.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.desc{font-size:13px;color:#555;margin-left:12px}
+.stage{min-height:calc(100vh - 58px);display:flex;justify-content:center;align-items:flex-start;gap:24px;padding:40px 16px;background:rgba(0,0,0,.55);flex-wrap:wrap}
+.modal{background:#fff;border-radius:12px;width:900px;max-width:100%;padding:32px 48px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.note{width:260px;background:#fff59d;padding:14px;font-size:13px;line-height:1.45;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.note h4{margin:0 0 6px}
+.note ul{margin:4px 0 0;padding-left:18px}
+h2{margin:0 0 16px;font-size:24px}
+.row{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.sel{position:relative}
+.selbtn{border:1px solid #bbb;background:#fff;border-radius:6px;padding:6px 10px;font-size:14px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tag{background:#fff4d6;color:#8a5a00;border-radius:10px;padding:1px 8px;font-size:12px;font-weight:600}
+.menu{position:absolute;top:36px;left:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.15);width:320px;z-index:3;padding:4px 0}
+.menu div,.smenu div{padding:8px 14px;font-size:14px;cursor:pointer}
+.menu div:hover,.smenu div:hover{background:#f2f2f2}
+.link{color:#1c5bd8;font-size:14px;cursor:pointer;background:none;border:0;padding:0}
+label.f{display:block;font-size:14px;font-weight:600;margin:12px 0 6px}
+input[type=text]{width:100%;border:1px solid #bbb;border-radius:6px;padding:10px;font-size:15px;font-family:inherit}
+.editor{border:1px solid #bbb;border-radius:6px}
+.tb{border-bottom:1px solid #e3e3e3;padding:6px 10px;display:flex;gap:14px;font-size:13px;color:#555}
+.msg{min-height:190px;padding:12px;font-size:15px;line-height:1.5;outline:none}
+.msg:empty:before{content:attr(data-ph);color:#999}
+.chip{background:#e8e8ec;border-radius:4px;padding:1px 6px;font-size:13px}
+.save{margin-top:16px;padding:14px 16px;background:#f0f5fd;border-radius:8px;font-size:14px}
+.save label{cursor:pointer}
+.save .sub{margin:10px 0 0 24px;display:flex;flex-direction:column;gap:8px}
+.save input[type=text]{max-width:380px;padding:8px}
+.err{color:#b3261e;font-size:13px}
+.warn{color:#8a5a00;font-size:13px;margin-top:10px}
+.hint{color:#555;font-size:13px}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
+.cap{color:#1c5bd8;font-size:13px}
+.btns{display:flex;gap:8px;position:relative}
+.btn{border-radius:6px;padding:10px 18px;font-size:15px;cursor:pointer;border:1px solid #1a1a1a;background:#fff;white-space:nowrap}
+.btn.p{background:#1a1a1a;color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.split{display:flex}
+.split .btn.p:first-child{border-radius:6px 0 0 6px}
+.split .btn.p:last-child{border-radius:0 6px 6px 0;border-left:1px solid #666;padding:10px 12px}
+.smenu{position:absolute;bottom:48px;right:0;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.15);width:280px;padding:4px 0;z-index:3}
+.smenu div.dis{color:#aaa;cursor:default;background:none}
+.toast{position:fixed;left:24px;bottom:24px;background:#fff;border-radius:8px;padding:14px 18px;box-shadow:0 6px 20px rgba(0,0,0,.3);border-bottom:4px solid #1e8e3e;font-size:14px;max-width:560px;z-index:10}
+.toast.bad{border-bottom-color:#b3261e}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="bar">
+  <b>Save &amp; send an edited template</b>
+  <button class="tab" data-o="A">A · Checkbox</button>
+  <button class="tab" data-o="B">B · Update or new ★</button>
+  <button class="tab" data-o="C">C · Full control</button>
+  <button class="tab" data-o="D">D · Split button</button>
+  <span class="desc">Try it: pick a template, edit the text, then send.</span>
+</div>
+
+<div class="stage">
+  <div class="modal" id="contact">
+    <h2>Contact Hugo Müller</h2>
+    <div class="row">
+      <div class="sel">
+        <button class="selbtn" id="selbtn"><span id="selname">Use template</span><span class="tag hidden" id="edtag">Edited</span> ▾</button>
+        <div class="menu hidden" id="menu"></div>
+      </div>
+      <button class="link hidden" id="reset">↺ Reset to template</button>
+    </div>
+    <label class="f" for="subject">Subject</label>
+    <input type="text" id="subject">
+    <label class="f">Message</label>
+    <div class="editor">
+      <div class="tb"><span>+ Variable</span><span>Link</span></div>
+      <div class="msg" id="msg" contenteditable="true" data-ph="Write to the applicant — confirm their application, request documents, or share next steps…"></div>
+    </div>
+    <div class="save hidden" id="save"></div>
+    <div class="foot">
+      <span class="cap">ⓘ This is a one-way message. Add your email address if you want candidates to reply.</span>
+      <div class="btns"><button class="btn" id="cancel">Cancel</button><div id="sendwrap"></div></div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="create">
+    <h2>Create new template</h2>
+    <label class="f" for="cname">Template name *</label>
+    <input type="text" id="cname">
+    <div class="err hidden" id="cerr"></div>
+    <label class="f" for="csubject">Subject</label>
+    <input type="text" id="csubject">
+    <label class="f">Message</label>
+    <div class="editor">
+      <div class="tb"><span>+ Variable</span></div>
+      <div class="msg" id="cmsg" contenteditable="true"></div>
+    </div>
+    <div class="foot"><span></span>
+      <div class="btns"><button class="btn" id="back">Back to message</button><button class="btn p" id="csend">Save &amp; send ➤</button></div>
+    </div>
+  </div>
+
+  <div class="note" id="note"></div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const chip = t => `<span class="chip" contenteditable="false">${t}</span>`;
+const SIG = '<br><br>Clara White';
+const templates = [
+  { name: 'Rejection message', subject: 'Your application at Buch AG',
+    html: `Hello ${chip('Recipient first name')} ${chip('Recipient last name')},<br><br>Thank you for your application for the Buchhandlung (m/f/d), 80-100%. We appreciate the time and effort you put into your submission.<br><br>After careful consideration, we have decided to proceed with other candidates whose background more closely aligns with the specific needs for this role.<br><br>Thank you once again for your interest in Buch AG, we wish you success in your job search.${SIG}` },
+  { name: 'Pending review', subject: 'Your application at Buch AG',
+    html: `Hello ${chip('Recipient first name')},<br><br>Thank you for your application. We are currently reviewing it and will get back to you within the next two weeks.${SIG}` },
+  { name: 'Document missing', subject: 'Your application at Buch AG',
+    html: `Hello ${chip('Recipient first name')} ${chip('Recipient last name')},<br><br>In order to proceed with your application, could you please send a work certificate from your previous employer to ${chip('Sender email')}?<br><br>Best regards,${SIG}` }
+];
+const NOTES = {
+  A: ['Option A · Checkbox', 'Name not editable.', ['+ Simplest: one checkbox', '− No variant, original is overwritten', '− No renaming']],
+  B: ['Option B · Update or new ★', 'Name editable only when saving as a new template. Renaming stays in Manage templates.', ['+ Covers "fix my template" and "variant for this case"', '+ Low risk of overwriting by mistake', '− One more decision than A']],
+  C: ['Option C · Full control', 'Name always editable. Changing it while updating renames the existing template.', ['+ No detour to Manage templates', '− Management action hidden in the send flow', '− Risk of accidental renames (shared templates?)']],
+  D: ['Option D · Split button', '"Save as new & send…" opens the existing Create template modal (3.8), prefilled.', ['+ Smallest footprint, reuses a screen', '− Hidden behind the chevron, low discoverability', '− Split button in the design system? (GAP)']]
+};
+
+let opt = 'B', cur = null, base = '', st = { on: false, mode: 'update', name: '' }, createFromSend = false, toastTimer;
+
+function mk(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function edited() { return !!cur && ($('msg').innerHTML !== base || $('subject').value !== cur.subject); }
+function resetState() { st = { on: false, mode: 'update', name: '' }; }
+function apply(t) { cur = t; $('subject').value = t.subject; $('msg').innerHTML = t.html; base = $('msg').innerHTML; resetState(); refresh(); }
+function clearForm() { cur = null; $('subject').value = ''; $('msg').innerHTML = ''; base = ''; resetState(); refresh(); }
+
+function toast(text, bad) {
+  const t = $('toast'); t.textContent = text; t.classList.toggle('bad', !!bad); t.classList.remove('hidden');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hidden'), 4500);
+}
+
+function buildMenu() {
+  const m = $('menu'); m.replaceChildren();
+  const add = mk('div', null, '+ Create new template');
+  add.onclick = () => { m.classList.add('hidden'); openCreate(false); };
+  m.append(add);
+  templates.forEach(t => {
+    const d = mk('div', null, t.name);
+    d.onclick = () => {
+      m.classList.add('hidden');
+      if (edited() && t !== cur && !confirm(`Replace your changes with "${t.name}"?`)) return;
+      apply(t);
+    };
+    m.append(d);
+  });
+}
+
+function needsName() { return st.on && (opt === 'C' || (opt === 'B' && st.mode === 'new')); }
+function nameError() {
+  if (!needsName()) return '';
+  const n = st.name.trim();
+  if (!n) return 'Template name is required.';
+  const clash = templates.some(t => t.name.toLowerCase() === n.toLowerCase() && !(st.mode === 'update' && t === cur));
+  return clash ? 'A template with this name already exists.' : '';
+}
+function validate() {
+  const msg = nameError(), er = $('nerr'), b = $('sendbtn');
+  if (er) { er.textContent = msg; er.classList.toggle('hidden', !msg); }
+  if (b) b.disabled = !!msg;
+}
+
+function renderSave(e) {
+  const s = $('save'); s.replaceChildren();
+  if (!e || opt === 'D') { s.classList.add('hidden'); return; }
+  s.classList.remove('hidden');
+
+  const top = mk('label'); const cb = mk('input'); cb.type = 'checkbox'; cb.checked = st.on;
+  cb.onchange = () => { st.on = cb.checked; st.name = ''; refresh(); };
+  top.append(cb, ' ', opt === 'A' ? `Also update the template "${cur.name}"` : 'Save these changes as a template');
+  s.append(top);
+
+  if (opt !== 'A' && st.on) {
+    const sub = mk('div', 'sub');
+    [['update', opt === 'C' ? 'Update existing template' : `Update "${cur.name}"`], ['new', 'Save as a new template']].forEach(([val, text]) => {
+      const l = mk('label'); const r = mk('input'); r.type = 'radio'; r.name = 'mode'; r.checked = st.mode === val;
+      r.onchange = () => { st.mode = val; st.name = ''; refresh(); };
+      l.append(r, ' ', text); sub.append(l);
+    });
+    if (needsName()) {
+      if (!st.name) st.name = st.mode === 'new' ? `${cur.name} (copy)` : cur.name;
+      sub.append(mk('div', 'hint', 'Template name *'));
+      const inp = mk('input'); inp.type = 'text'; inp.value = st.name;
+      inp.oninput = () => { st.name = inp.value; validate(); };
+      const err = mk('div', 'err hidden'); err.id = 'nerr';
+      sub.append(inp, err);
+      if (opt === 'C' && st.mode === 'update') sub.append(mk('div', 'hint', 'Changing the name renames the template in Manage templates too.'));
+    }
+    s.append(sub);
+  }
+  if (st.on && /Hugo|Müller/i.test($('msg').innerText)) {
+    s.append(mk('div', 'warn', '⚠ Your changes include the applicant\'s name. Use the variable "Recipient first name" so the template works for every applicant.'));
+  }
+}
+
+function renderSend(e) {
+  const w = $('sendwrap'); w.replaceChildren();
+  if (opt === 'D') {
+    const sp = mk('div', 'split');
+    const b1 = mk('button', 'btn p', 'Send ➤'); b1.id = 'sendbtn'; b1.onclick = () => send('none');
+    const sm = mk('div', 'smenu hidden');
+    const b2 = mk('button', 'btn p', '▾'); b2.onclick = ev => { ev.stopPropagation(); sm.classList.toggle('hidden'); };
+    [['Send only', () => send('none'), true],
+     [cur ? `Update "${cur.name}" & send` : 'Update template & send', () => send('update'), e],
+     ['Save as new & send…', () => openCreate(true), e]].forEach(([t, f, en]) => {
+      const d = mk('div', en ? null : 'dis', t);
+      if (en) d.onclick = () => { sm.classList.add('hidden'); f(); };
+      sm.append(d);
+    });
+    sp.append(b1, b2); w.append(sp, sm);
+    return;
+  }
+  const saving = e && st.on;
+  const b = mk('button', 'btn p', saving ? 'Save & send ➤' : 'Send ➤'); b.id = 'sendbtn';
+  b.onclick = () => send(saving ? (opt === 'A' ? 'update' : st.mode) : 'none');
+  w.append(b);
+}
+
+function refresh() {
+  const e = edited();
+  $('selname').textContent = cur ? cur.name : 'Use template';
+  $('edtag').classList.toggle('hidden', !e);
+  $('reset').classList.toggle('hidden', !e);
+  renderSave(e); renderSend(e); validate();
+}
+
+function isEmpty(el) { return !el.textContent.trim() && !el.querySelector('.chip'); }
+
+function send(mode) {
+  if (mode !== 'none' && nameError()) return;
+  if (isEmpty($('msg'))) { toast('Please write a message before sending.', true); return; }
+  let extra = '';
+  if (mode === 'update') {
+    const old = cur.name;
+    cur.subject = $('subject').value; cur.html = $('msg').innerHTML;
+    if (opt === 'C') cur.name = st.name.trim();
+    extra = cur.name !== old ? ` Template "${old}" updated and renamed to "${cur.name}".` : ` Template "${cur.name}" updated.`;
+  } else if (mode === 'new') {
+    const n = st.name.trim();
+    templates.push({ name: n, subject: $('subject').value, html: $('msg').innerHTML });
+    extra = ` Template "${n}" created.`;
+  }
+  toast('✓ Message sent to Hugo Müller.' + extra);
+  buildMenu(); clearForm();
+}
+
+function cNameError() {
+  const n = $('cname').value.trim();
+  if (!n) return 'Template name is required.';
+  return templates.some(t => t.name.toLowerCase() === n.toLowerCase()) ? 'A template with this name already exists.' : '';
+}
+function cValidate() { const m = cNameError(); $('cerr').textContent = m; $('cerr').classList.toggle('hidden', !m); $('csend').disabled = !!m; }
+function openCreate(fromSend) {
+  createFromSend = fromSend;
+  $('cname').value = cur ? `${cur.name} (copy)` : '';
+  $('csubject').value = $('subject').value;
+  $('cmsg').innerHTML = $('msg').innerHTML;
+  $('csend').textContent = fromSend ? 'Save & send ➤' : 'Save';
+  cValidate();
+  $('contact').classList.add('hidden'); $('create').classList.remove('hidden');
+}
+function closeCreate() { $('create').classList.add('hidden'); $('contact').classList.remove('hidden'); }
+
+$('cname').oninput = cValidate;
+$('back').onclick = closeCreate;
+$('csend').onclick = () => {
+  if (cNameError()) return;
+  if (createFromSend && isEmpty($('cmsg'))) { toast('Please write a message before sending.', true); return; }
+  const t = { name: $('cname').value.trim(), subject: $('csubject').value, html: $('cmsg').innerHTML };
+  templates.push(t); buildMenu(); closeCreate();
+  if (createFromSend) { toast(`✓ Message sent to Hugo Müller. Template "${t.name}" created.`); clearForm(); }
+  else { apply(t); toast(`✓ Template "${t.name}" was created successfully.`); }
+};
+
+$('msg').oninput = refresh;
+$('subject').oninput = refresh;
+$('reset').onclick = () => apply(cur);
+$('cancel').onclick = () => { clearForm(); toast('Cancelled. No message sent, template unchanged.'); };
+$('selbtn').onclick = ev => { ev.stopPropagation(); $('menu').classList.toggle('hidden'); };
+document.addEventListener('click', ev => {
+  if (!ev.target.closest('.sel')) $('menu').classList.add('hidden');
+  if (!ev.target.closest('.btns')) document.querySelectorAll('.smenu').forEach(x => x.classList.add('hidden'));
+});
+
+function setOpt(o) {
+  opt = o; resetState();
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.o === o));
+  const [title, desc, points] = NOTES[o], n = $('note'); n.replaceChildren();
+  const ul = mk('ul'); points.forEach(p => ul.append(mk('li', null, p)));
+  n.append(mk('h4', null, title), mk('div', null, desc), ul);
+  if (!$('create').classList.contains('hidden')) closeCreate();
+  refresh();
+}
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => setOpt(t.dataset.o));
+
+buildMenu();
+apply(templates[0]);
+setOpt('B');
+</script>
+</body>
+</html>

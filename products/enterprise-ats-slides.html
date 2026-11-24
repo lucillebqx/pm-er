@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise ATS – additional details</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #32364f;
+    --panel: #3c4263;
+    --panel-strong: #464d72;
+    --teal: #2fa8c8;
+    --white: #ffffff;
+    --muted: #c9cde0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f4f4f4; font-family: "Open Sans", Arial, sans-serif; padding: 40px 0; }
+  .slide {
+    width: 1280px; height: 720px; margin: 0 auto 40px; background: var(--bg);
+    color: var(--white); padding: 48px 64px; position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  h1 { font-size: 40px; font-weight: 700; line-height: 1.1; }
+  .bar { width: 190px; height: 4px; background: var(--teal); margin: 8px 0 10px; }
+  .subtitle { color: var(--teal); font-weight: 700; font-size: 17px; margin-bottom: 26px; }
+  h3 { color: var(--teal); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .pillar { background: var(--panel); border-top: 4px solid var(--teal); padding: 20px 22px; height: 350px; }
+  .pillar h2 { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .pillar .promise { font-style: italic; color: var(--muted); font-size: 16px; line-height: 1.4;
+                     border-bottom: 1px solid var(--teal); padding-bottom: 12px; margin-bottom: 14px; min-height: 58px; }
+  .label { color: var(--teal); font-weight: 600; font-size: 14px; text-transform: uppercase;
+           letter-spacing: .5px; margin-bottom: 4px; }
+  .before { color: var(--muted); font-size: 16px; line-height: 1.4; margin-bottom: 14px; }
+  .now { background: var(--panel-strong); border-left: 3px solid var(--teal); padding: 10px 14px; }
+  .now ul { padding-left: 18px; }
+  .now li { font-size: 16px; line-height: 1.45; margin-bottom: 2px; }
+
+  .footer { position: absolute; left: 64px; right: 64px; bottom: 40px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .footer-box { background: var(--panel); padding: 12px 20px; font-size: 16px; line-height: 1.4; }
+  .footer-box h3 { margin-bottom: 2px; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<section class="slide">
+  <h1>Enterprise ATS vs. basic ONE ATS</h1>
+  <div class="bar"></div>
+  <div class="subtitle">What changes for recruiting teams</div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <h2>Control</h2>
+      <div class="promise">The hiring process follows the company's way of working</div>
+      <div class="label">Basic ONE</div>
+      <div class="before">Fixed statuses, same access for everyone</div>
+      <div class="label">Enterprise ATS</div>
+      <div class="now"><ul>
+        <li>Custom Kanban stages per job ad</li>
+        <li>Access per job ad (Job Owner, Hiring Managers)</li>
+        <li>Default templates set by Admin</li>
+      </ul></div>
+    </div>
+
+    <div class="pillar">
+      <h2>Time saving</h2>
+      <div class="promise">Repetitive tasks run on their own</div>
+      <div class="label">Basic ONE</div>
+      <div class="before">Message templates, sent manually; scheduling outside the tool</div>
+      <div class="label">Enterprise ATS</div>
+      <div class="now"><ul>
+        <li>Messages sent automatically at each stage</li>
+        <li>Emails from own Gmail / Outlook</li>
+        <li>Candidate self-scheduling, Zoom and Teams</li>
+      </ul></div>
+    </div>
+
+    <div class="pillar">
+      <h2>Collaboration</h2>
+      <div class="promise">Recruiters and hiring managers decide together</div>
+      <div class="label">Basic ONE</div>
+      <div class="before">Comments and CV per candidate</div>
+      <div class="label">Enterprise ATS</div>
+      <div class="now"><ul>
+        <li>Scorecards and evaluations</li>
+        <li>Sharing applications with colleagues</li>
+        <li>Pipeline and time-to-hire reports</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-box">
+      <h3>Good to know</h3>
+      Publication stays in ONE – the ATS takes over after publication.
+    </div>
+    <div class="footer-box">
+      <h3>Trade-offs vs. basic ONE</h3>
+      No screening questions, no full candidate file download.
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
